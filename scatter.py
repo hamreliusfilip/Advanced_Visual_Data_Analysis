@@ -1,16 +1,9 @@
-import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-path = 'Data/EyeTrack-raw.tsv'
-
-data=pd.read_csv(path,sep='\t')
-
-X = data['GazePointX(px)']
-Y = data['GazePointY(px)']
-TIME = data['RecordingTimestamp']
-
-TIME = TIME / 1000
+X = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Y = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+TIME = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 scatter = plt.scatter(X, Y, c=TIME, cmap='viridis')
 cbar = plt.colorbar(scatter, label="Time")
