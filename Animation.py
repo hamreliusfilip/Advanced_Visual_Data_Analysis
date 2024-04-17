@@ -25,4 +25,5 @@ for i in range(len(X)):
 
 animation = camera.animate(interval=100, blit=True)
 
-plt.show()
+# Save the animation as an MP4 file
+animation.save('animation.mp4', writer='ffmpeg')
