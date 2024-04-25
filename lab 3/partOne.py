@@ -24,14 +24,22 @@ RGB_Data = [None] * 11
 RGB_Middle_Data = [None] * 11
 RGB_Middle_Several_Data = [None] * 11
 Luminance_Data = [None] * 11
-Edge_Data = [None] * 11
+
+Edge_Density = [None] * 11
+Mean_Edge_Data = [None] * 11
+Edge_Intensity = [None] * 11
+Orientation_Data = [None] * 11
+
 
 for i in range(0,11):
     
     # Color content - average RGB values
     image_rgb = cv2.cvtColor(images[i], cv2.COLOR_BGR2RGB)
     avg_rgb = np.mean(image_rgb, axis=(0, 1))
-    RGB_Data[i] = avg_rgb
+    
+    # Normalize RGB values
+    avg_rgb_normalized = avg_rgb / 255.0 
+    RGB_Data[i] = avg_rgb_normalized
     
     # Color distribution around the central point
     top_left_x = (100 - 20) // 2
@@ -90,8 +98,11 @@ for i in range(0,11):
     mean_edge_intensity = np.mean(image_grey[edges != 0])
     std_edge_intensity = np.std(image_grey[edges != 0])
     orientation_hist, _ = np.histogram(np.arctan2(cv2.Sobel(image_grey, cv2.CV_64F, 0, 1, ksize=3), cv2.Sobel(image_grey, cv2.CV_64F, 1, 0, ksize=3))[edges != 0], bins=10, range=(-np.pi, np.pi))
-
-    Edge_Data[i] = (edge_density + mean_edge_intensity + std_edge_intensity + orientation_hist) / 4
+    
+    Edge_Density[i] = edge_density
+    Mean_Edge_Data[i] = mean_edge_intensity
+    Edge_Intensity[i] = std_edge_intensity
+    Orientation_Data[i] = orientation_hist
 
 
 # Calculate distance matrix 
@@ -101,7 +112,7 @@ counter = 0
 
 for i in range(0,11): 
     
-    feature_vector[i] = [RGB_Data[i], RGB_Middle_Data[i], RGB_Middle_Several_Data[i], Luminance_Data[i], Edge_Data[i]]
+    feature_vector[i] = [RGB_Data[i], RGB_Middle_Data[i], RGB_Middle_Several_Data[i], Luminance_Data[i], Edge_Density[i], Mean_Edge_Data[i], Edge_Intensity[i], Orientation_Data[i]]
     
 
 def cosine_similarity(vector_a, vector_b):
@@ -121,9 +132,13 @@ for i in range(0,11):
             rbsm_similarity = cosine_similarity(RGB_Middle_Data[i], RGB_Middle_Data[j])
             rbsms_similarity = cosine_similarity(RGB_Middle_Several_Data[i], RGB_Middle_Several_Data[j])
             lum_similarity = cosine_similarity(Luminance_Data[i], Luminance_Data[j])
-            edge_similarity = cosine_similarity(Edge_Data[i], Edge_Data[j])
             
-            tot = (rbs_similarity + rbsm_similarity + rbsms_similarity + lum_similarity + edge_similarity)/5
+            edge_density_similarity = cosine_similarity(Edge_Density[i], Edge_Density[j])
+            mean_edge_similarity = cosine_similarity(Mean_Edge_Data[i], Mean_Edge_Data[j])
+            edge_intensity_similarity = cosine_similarity(Edge_Intensity[i], Edge_Intensity[j])
+            orientation_similarity = cosine_similarity(Orientation_Data[i], Orientation_Data[j])
+            
+            tot = (rbs_similarity + rbsm_similarity + rbsms_similarity + lum_similarity + edge_density_similarity + mean_edge_similarity + edge_intensity_similarity + orientation_similarity)/8
             distance_matrix[i][j] = tot
         else :
             distance_matrix[i][j] = 1
