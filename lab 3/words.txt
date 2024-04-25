@@ -1,172 +1,371 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2761
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
-{\colortbl;\red255\green255\blue255;\red231\green231\blue231;}
-{\*\expandedcolortbl;;\cssrgb\c92549\c92549\c92549;}
-{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid1\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
-{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
-\paperw11900\paperh16840\margl1440\margr1440\vieww33480\viewh19520\viewkind0
-\deftab720
-\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
-\ls1\ilvl0
-\f0\fs32 \cf2 Terrorism\
-Threat\
-Extremism\
-Radicalization\
-Suicide bomber\
-Insurgency\
-Militancy\
-Guerrilla warfare\
-Improvised Explosive Device (IED)\
-Al-Qaeda\
-ISIS (Islamic State of Iraq and Syria)\
-Taliban\
-Fundamentalism\
-Sectarian violence\
-Jihadist\
-Warlord\
-Paramilitary\
-Proxy war\
-Civil unrest\
-Chemical warfare\
-Biological warfare\
-Cyberterrorism\
-State-sponsored terrorism\
-Counterterrorism\
-Intelligence gathering\
-Counterinsurgency\
-War crime\
-Genocide\
-Atrocity\
-Ethnic cleansing\
-Drone strike\
-Hostage\
-Hijacking\
-Radical cleric\
-Propaganda\
-Recruitment\
-Sleeper cell\
-War zone\
-Conflict zone\
-Weapons cache\
-Coup d'\'e9tat\
-Massacre\
-Sabotage\
-Torture\
-Militarization\
-National security\
-Border conflict\
-Arms trafficking\
-Conflict resolution\
-Peacekeeping\
-Diplomacy\
-Non-violent resistance\
-Humanitarian aid\
-Peace treaty\
-Demilitarization\
-Disarmament\
-Reconciliation\
-Refugee crisis\
-War correspondent\
-Emergency relief\
-Peacebuilding\
-Negotiation\
-Security council\
-Arms control\
-International law\
-Peace process\
-Coalition forces\
-War economy\
-Military intervention\
-Ceasefire\
-Guerrilla tactics\
-Counterinsurgency operations\
-Drone warfare\
-Covert operations\
-Military strategy\
-Peace enforcement\
-War profiteering\
-Terror cell\
-Radicalization program\
-Terrorist financing\
-Suicide attack\
-Terror plot\
-Extremist ideology\
-Terrorist network\
-Terrorist recruitment\
-Terrorist sympathizer\
-Terrorist violence\
-Explosive\
-Carnage\
-Casualty\
-Attack\
-Dead\
-Wounded\
-Victims\
-Blast\
-Explosion\
-Terrorist threat\
-Terrorist group\
-Terrorist leader\
-Terrorist organization\
-Terrorist insurgency\
-Terrorist cell\
-Terrorist propaganda\
-Terrorist tactics\
-Terrorist target\
-Terrorist stronghold\
-Terrorist safe house\
-Terrorist mastermind\
-Terrorist training camp\
-Terrorist operative\
-Terrorist safe haven\
-Terrorist violence\
-Terrorist act\
-Terrorist activity\
-Terrorist incident\
-Terrorist bombing\
-Terrorist strike\
-Terrorist assault\
-Terrorist aggression\
-Terrorist siege\
-Terrorist kidnapping\
-Terrorist hostage-taking\
-Terrorist assassination\
-Terrorist sabotage\
-Terrorist infiltration\
-Terrorist plot\
-Terrorist financing\
-Suicide attack\
-Extremist ideology\
-Terrorist network\
-Terrorist recruitment\
-Terrorist sympathizer\
-Terrorist violence\
-Explosive device\
-Bombing\
-Radicalization\
-Terrorist activity\
-Terrorism\
-Terrorist attack\
-IED (Improvised Explosive Device)\
-Jihadist\
-Warlord\
-Paramilitary\
-Proxy war\
-Civil unrest\
-Chemical warfare\
-Biological warfare\
-Cyberterrorism\
-State-sponsored terrorism\
-Counterterrorism\
-Intelligence gathering\
-Counterinsurgency\
-War crime\
-Genocide\
-Atrocity\
-Ethnic cleansing\
-threat\
-terrorism\ 
-dead\ 
-attack\ 
+Terrorism
+Threat
+Extremism
+Radicalization
+Suicide bomber
+Insurgency
+Militancy
+Guerrilla warfare
+Al-Qaeda
+ISIS (Islamic State of Iraq and Syria)
+Taliban
+Fundamentalism
+Sectarian violence
+Jihadist
+Warlord
+Paramilitary
+Proxy war
+Civil unrest
+Chemical warfare
+Biological warfare
+Cyberterrorism
+State-sponsored terrorism
+Counterterrorism
+Intelligence gathering
+Counterinsurgency
+War crime
+Genocide
+Atrocity
+Ethnic cleansing
+Drone strike
+Hostage
+Hijacking
+Radical cleric
+Propaganda
+Recruitment
+Sleeper cell
+War zone
+Conflict zone
+Weapons cache
+Coup d' 'e9tat
+Massacre
+Sabotage
+Torture
+Militarization
+National security
+Border conflict
+Arms trafficking
+Conflict resolution
+Peacekeeping
+Diplomacy
+Non-violent resistance
+Humanitarian aid
+Peace treaty
+Demilitarization
+Disarmament
+Reconciliation
+Refugee crisis
+War correspondent
+Emergency relief
+Peacebuilding
+Negotiation
+Security council
+Arms control
+International
+Coalition forces
+War economy
+Military intervention
+Ceasefire
+Guerrilla tactics
+Counterinsurgency operations
+Drone warfare
+Covert operations
+Military strategy
+Peace enforcement
+War profiteering
+Terror cell
+Radicalization program
+Terrorist financing
+Suicide attack
+Terror plot
+Extremist ideology
+Terrorist network
+Terrorist recruitment
+Terrorist sympathizer
+Terrorist violence
+Carnage
+Casualty
+Attack
+Dead
+Wounded
+Victims
+Blast
+Terrorist threat
+Terrorist group
+Terrorist leader
+Terrorist organization
+Terrorist insurgency
+Terrorist cell
+Terrorist propaganda
+Terrorist tactics
+Terrorist target
+Terrorist stronghold
+Terrorist safe house
+Terrorist mastermind
+Terrorist training camp
+Terrorist operative
+Terrorist safe haven
+Terrorist violence
+Terrorist act
+Terrorist activity
+Terrorist incident
+Terrorist bombing
+Terrorist strike
+Terrorist assault
+Terrorist aggression
+Terrorist siege
+Terrorist kidnapping
+Terrorist hostage-taking 
+Terrorist assassination
+Terrorist sabotage
+Terrorist infiltration
+Terrorist plot
+Terrorist financing
+Suicide attack
+Extremist ideology
+Terrorist network
+Terrorist recruitment
+Terrorist sympathizer
+Terrorist violence
+Bombing
+Radicalization
+Terrorist activity
+Terrorism
+Terrorist attack
+IED
+Jihadist
+Warlord
+Paramilitary
+Proxy war
+Civil unrest 
+Chemical warfare
+Biological warfare
+Cyberterrorism
+State-sponsored terrorism
+Counterterrorism
+Intelligence gathering
+Counterinsurgency
+War crime
+Genocide
+Atrocity
+Ethnic cleansing
+threat
+terrorism
+dead
+attack
+threat 
+terrorism
+dead
+attack
+violence
+extremism
+hostility
+radicalization
+militancy
+sabotage
+bombing
+insurgency
+conflict
+assassination
+coercion
+guerrilla warfare
+cyberterrorism
+bio-terrorism
+chemical warfare
+suicide bombing
+hijacking
+kidnapping
+massacre
+carnage
+slaughter
+ambush
+siege
+infiltration
+subversio
+threat
+terrorism
+dea
+attack
 explosion
-}
+violence
+extremism
+hostility
+radicalization
+militancy
+sabotage
+bombing
+insurgency
+conflict
+assassination
+coercion
+guerrilla warfare
+cyberterrorism
+bio-terrorism
+chemical warfare
+suicide bombing
+hijacking
+kidnapping
+massacre
+carnage
+slaughter
+ambush
+siege
+infiltration
+subversion
+mayhem
+atrocity
+catastrophe
+destruction
+annihilation
+bloodshed
+terrorism
+perpetrator
+target
+calamity
+warfare
+menace
+crisis
+emergency
+onslaught
+retribution
+vandalism
+riot
+provocation
+intimidation
+deception
+insecurity
+fear
+danger
+hazard
+conspiracy
+invasion
+fugitive
+suspicion
+paranoia
+onslaught
+assault
+murder
+crackdown
+escalation
+disaster
+chaos
+anarchy
+damages
+deceit
+violations
+rampage
+insurrection
+assailant
+infliction
+wound
+havoc
+collateral
+victims
+suffering
+radicalism
+martyrdom
+devastation
+collusion
+surveillance
+saboteur
+covert
+repression
+outrage
+prejudice
+violator
+menacing
+revenge
+terrorist
+armament
+combatant
+dread
+infliction
+peril
+assault
+radical
+faction
+dangerous
+countermeasure
+infiltrator
+deterrence
+explosive
+martyr 
+siege
+security
+vulnerability
+perpetrator
+provocation
+oppression
+detonation
+counterterrorism
+security
+retaliation
+intervention
+counterinsurgency
+counterattack
+counterintelligence
+victims
+civilian
+paramilitary
+intelligence
+military
+incursion
+subversive
+warzone
+rebellion
+revolution
+guerrilla
+subterfuge
+infiltrate
+perpetrate
+terrorize
+extremist
+fundamentalism
+provocateur
+targeting
+espionage
+weaponry
+insurrectionary
+hostage
+sabotaging
+countermeasure
+collateral
+decapitation
+propaganda
+repression
+subjugation
+provocative
+militant
+civil unrest
+weaponize
+radicalize
+destabilization
+strife
+paramilitary
+atrocity
+espionage
+propagandist
+rendition
+sleeper cell
+sabotage
+terrorize
+mass destruction
+security breach
+weapon proliferation
+violent extremism
+national security
+covert operation
+imminent threat
+security clearance
+intelligence gathering
+extremist group
+counterterrorism efforts
+terrorist organization
+non-state actor
+security protocol
+security measures
+counter-radicalization
+homegrown terrorism
+security threat
+security risk
+emergency preparedness
