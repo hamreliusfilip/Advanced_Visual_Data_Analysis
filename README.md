@@ -1,5 +1,7 @@
 Labs and Project for the advanced visual data analysis course. 
 
+Project include the VAST challange from 2020 - Mini challange 1.
+
 Lab 2: 
 
 ![normal_scatter](https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/579cceb3-e49f-4bfe-8f83-8ffa1cb1ec89)
