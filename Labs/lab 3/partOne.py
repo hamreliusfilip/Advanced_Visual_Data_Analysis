@@ -3,8 +3,6 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
-# Import and resize images 
-
 images = [None] * 12
 
 for i in range(0, 12): 
@@ -16,9 +14,6 @@ for i in range(0, 12):
     im = Image.open(file)
     resized_image = im.resize((100, 100))
     images[i] = np.array(resized_image)
-
-
-# Find and create features 
 
 RGB_Data = [None] * 11
 RGB_Middle_Data = [None] * 11
@@ -37,7 +32,6 @@ for i in range(0,11):
     image_rgb = cv2.cvtColor(images[i], cv2.COLOR_BGR2RGB)
     avg_rgb = np.mean(image_rgb, axis=(0, 1))
     
-    # Normalize RGB values
     avg_rgb_normalized = avg_rgb / 255.0 
     RGB_Data[i] = avg_rgb_normalized
     
