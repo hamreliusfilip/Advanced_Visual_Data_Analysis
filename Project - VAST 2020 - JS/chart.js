@@ -1,6 +1,6 @@
 function createChart(chartSelector, dataURL, width, height, centerPos) {
-    var chargeStrength = -150; 
-    var simulation; 
+    var chargeStrength = -150;
+    var simulation;
 
     d3.csv(dataURL).then(function (data) {
         var nodes = [];
@@ -93,71 +93,74 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .attr("fill", "black")
             .attr("font-weight", "bold");
 
+        const legend = svg.append("g")
+            .attr("class", "legend")
+            .attr("transform", "translate(20,20)");
 
-    const legend = svg.append("g")
-        .attr("class", "legend")
-        .attr("transform", "translate(20,20)");
+        const uniqueColors = Array.from(new Set(types)).sort((a, b) => a - b);
+        const legendBoxSize = 15;
 
-    const uniqueColors = Array.from(new Set(types)).sort((a, b) => a - b);
-    const legendBoxSize = 15;
+        legend.selectAll(".legend-box")
+            .data(uniqueColors)
+            .enter().append("rect")
+            .attr("class", "legend-box")
+            .attr("x", 0)
+            .attr("y", (d, i) => i * (legendBoxSize + 5))
+            .attr("width", legendBoxSize)
+            .attr("height", legendBoxSize)
+            .style("fill", color);
 
-    legend.selectAll(".legend-box")
-        .data(uniqueColors)
-        .enter().append("rect")
-        .attr("class", "legend-box")
-        .attr("x", 0)
-        .attr("y", (d, i) => i * (legendBoxSize + 5))
-        .attr("width", legendBoxSize)
-        .attr("height", legendBoxSize)
-        .style("fill", color);
+        const typeDescription = ["Email (Communication)", "Phone (Communication)", "Sell (Procurement)", "Buy (Procurement)", "Co-authorship channel", "Demographics channel (Income/expenses)", "Travel channel"];
 
-    const typeDescription = ["Email (Communication)", "Phone (Communication)", "Sell (Procurement)", "Buy (Procurement)", "Co-authorship channel", "Demographics channel (Income/expenses)", "Travel channel"];
-
-    legend.selectAll(".legend-text")
-        .data(uniqueColors)
-        .enter().append("text")
-        .attr("class", "legend-text")
-        .attr("x", legendBoxSize + 5)
-        .attr("y", (d, i) => i * (legendBoxSize + 5) + legendBoxSize / 2)
-        .attr("dy", "0.35em")
-        .text(d => `${typeDescription[d]}`);
+        legend.selectAll(".legend-text")
+            .data(uniqueColors)
+            .enter().append("text")
+            .attr("class", "legend-text")
+            .attr("x", legendBoxSize + 5)
+            .attr("y", (d, i) => i * (legendBoxSize + 5) + legendBoxSize / 2)
+            .attr("dy", "0.35em")
+            .text(d => `${typeDescription[d]}`);
 
         simulation.on("tick", () => {
             link.attr("d", linkArc);
             node.attr("transform", d => `translate(${d.x},${d.y})`);
         });
-    });
-    
-    function linkArc(d) {
-        const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
-        return `
+
+    function ticked() {
+        link.attr("d", linkArc);
+        node.attr("transform", d => `translate(${d.x},${d.y})`);
+    }
+});
+
+function linkArc(d) {
+    const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
+    return `
           M${d.source.x},${d.source.y}
           A${r},${r} 0 0,1 ${d.target.x},${d.target.y}
         `;
+}
+
+function drag(simulation) {
+    function dragstarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
     }
-    
-    drag = simulation => {
-    
-        function dragstarted(event, d) {
-            if (!event.active) simulation.alphaTarget(0.3).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
-    
-        function dragged(event, d) {
-            d.fx = event.x;
-            d.fy = event.y;
-        }
-    
-        function dragended(event, d) {
-            if (!event.active) simulation.alphaTarget(0);
-            d.fx = null;
-            d.fy = null;
-        }
-    
-        return d3.drag()
-            .on("start", dragstarted)
-            .on("drag", dragged)
-            .on("end", dragended);
+
+    function dragged(event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
     }
+
+    function dragended(event, d) {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+
+    return d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended);
+}
 }
