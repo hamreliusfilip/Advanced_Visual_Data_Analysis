@@ -93,11 +93,40 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .attr("fill", "black")
             .attr("font-weight", "bold");
 
-        function ticked() {
-            link.attr("d", linkArc);
-            node.attr("transform", d => `translate(${d.x},${d.y})`);
-        }
+
+    const legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("transform", "translate(20,20)");
+
+    const uniqueColors = Array.from(new Set(types)).sort((a, b) => a - b);
+    const legendBoxSize = 15;
+
+    legend.selectAll(".legend-box")
+        .data(uniqueColors)
+        .enter().append("rect")
+        .attr("class", "legend-box")
+        .attr("x", 0)
+        .attr("y", (d, i) => i * (legendBoxSize + 5))
+        .attr("width", legendBoxSize)
+        .attr("height", legendBoxSize)
+        .style("fill", color);
+
+    const typeDescription = ["Email (Communication)", "Phone (Communication)", "Sell (Procurement)", "Buy (Procurement)", "Co-authorship channel", "Demographics channel (Income/expenses)", "Travel channel"];
+
+    legend.selectAll(".legend-text")
+        .data(uniqueColors)
+        .enter().append("text")
+        .attr("class", "legend-text")
+        .attr("x", legendBoxSize + 5)
+        .attr("y", (d, i) => i * (legendBoxSize + 5) + legendBoxSize / 2)
+        .attr("dy", "0.35em")
+        .text(d => `${typeDescription[d]}`);
+
+    simulation.on("tick", () => {
+        link.attr("d", linkArc);
+        node.attr("transform", d => `translate(${d.x},${d.y})`);
     });
+});
 
     function linkArc(d) {
         const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
