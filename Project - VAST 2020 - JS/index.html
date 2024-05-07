@@ -6,12 +6,49 @@
     <link rel="stylesheet" href="stylesheet.css" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="chart.js"></script>
+    <script src="main.js"></script>
 </head>
 
 <body>
-    <div className="hej">
-        <svg></svg>
+    <div class="Control">
+        <div class="B_one">
+            <p> Initate data </p>
+            <button class="Button" onclick="updateChart('.chart_one', 'Data/CGCS-Template.csv', 800, 800, [400, 400])">
+                Template
+                Graph</button>
+        </div>
+        <div class="B_two">
+            <p> Choose a dataset for chart two </p>
+            <button class="Button" onclick="updateChart('.chart_two', 'Data/Q1-Graph1.csv', 800, 800, [400, 400])">
+                Graph
+                1</button>
+            <button class="Button" onclick="updateChart('.chart_two', 'Data/Q1-Graph2.csv', 800, 800, [400, 400])">
+                Graph
+                2</button>
+            <button class="Button" onclick="updateChart('.chart_two', 'Data/Q1-Graph3.csv', 800, 800, [400, 400])">
+                Graph
+                3</button>
+            <button class="Button" onclick="updateChart('.chart_two', 'Data/Q1-Graph4.csv', 800, 800, [400, 400])">
+                Graph
+                4</button>
+            <button class="Button" onclick="updateChart('.chart_two', 'Data/Q1-Graph5.csv', 800, 800, [400, 400])">
+                Graph
+                5</button>
+        </div>
     </div>
+
+    <div class="Charts">
+
+        <div class="chart_one">
+            <svg></svg>
+        </div>
+
+        <div class="chart_two">
+            <svg></svg>
+        </div>
+    </div>
+
+    <div>
 </body>
 
 </html>
