@@ -8,7 +8,6 @@ d3.csv("Data/CGCS-Template.csv").then(function (data) {
 
         var sourceNode = nodes.find(node => node.id === d.Source);
         var targetNode = nodes.find(node => node.id === d.Target);
-        var Types = nodes.find(node => node.id === d.eType);
 
         if (d.eType == 5) {
             return;
@@ -24,11 +23,13 @@ d3.csv("Data/CGCS-Template.csv").then(function (data) {
             nodes.push(targetNode);
         }
 
-        types.push(Types);
-        links.push({ source: sourceNode, target: targetNode });
+        links.push({ source: sourceNode, target: targetNode, type: d.eType });
+        types.push(d.eType);
     });
 
-    const color = d3.scaleOrdinal(types, d3.schemeCategory10);
+    const color = d3.scaleOrdinal()
+        .domain(types)
+        .range(d3.schemeCategory10);
 
     var width = 1000;
     var height = 1000;
