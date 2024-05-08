@@ -16,18 +16,19 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             }
 
             if (!sourceNode) {
-                sourceNode = { id: d.Source };
+                sourceNode = { id: d.Source, eType: d.eType };
                 nodes.push(sourceNode);
             }
 
             if (!targetNode) {
-                targetNode = { id: d.Target };
+                targetNode = { id: d.Target, eType: d.eType };
                 nodes.push(targetNode);
             }
 
             links.push({ source: sourceNode, target: targetNode, type: d.eType });
             types.push(d.eType);
         });
+        nodes.sort((a, b) => a.eType - b.eType);
 
         const color = d3.scaleOrdinal()
             .domain(types)
@@ -80,10 +81,13 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .join("g")
             .call(drag(simulation));
 
-        node.append("circle")
-            .attr("stroke", "black")
-            .attr("stroke-width", 1.5)
-            .attr("r", 5);
+        const symbolType = d3.scaleOrdinal()
+            .domain([0, 1, 2, 3, 4, 5, 6]) // Include all possible eTypes
+            .range([d3.symbolCircle, d3.symbolCircle, d3.symbolCircle ,d3.symbolCross, d3.symbolSquare, d3.symbolTriangle, d3.symbolStar]);
+        
+        node.append("path")
+            .attr("d", d => d3.symbol().type(symbolType(d.eType))());
+
 
         node.append("text")
             .attr("x", 8)
@@ -111,7 +115,8 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .style("fill", color);
 
         const typeDescription = ["Email (Communication)", "Phone (Communication)", "Sell (Procurement)", "Buy (Procurement)", "Co-authorship channel", "Demographics channel (Income/expenses)", "Travel channel"];
-
+        const symbolDescription = ["Person", "Person" , "Person", "Product", "Document", "Country", "Travel channel"];
+        
         legend.selectAll(".legend-text")
             .data(uniqueColors)
             .enter().append("text")
@@ -121,46 +126,88 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .attr("dy", "0.35em")
             .text(d => `${typeDescription[d]}`);
 
+        const symbolLegend = svg.append("g")
+            .attr("class", "legend")
+            .attr("transform", `translate(${width - 150}, 20)`); // Adjust x and y coordinates here
+        
+        symbolLegend.selectAll(".legend-symbol")
+            .data(uniqueColors)
+            .enter().append("g")
+            .attr("class", "legend-symbol")
+            .attr("transform", (d, i) => `translate(0, ${i * 25})`) // Adjust the spacing between symbols
+            .each(function (d) {
+                d3.select(this).append("path")
+                    .attr("d", d3.symbol().type(symbolType(d))())
+                    .attr("stroke", "black")
+                    .attr("stroke-width", 1.5);
+            });
+        
+        symbolLegend.selectAll(".legend-text")
+            .data(uniqueColors)
+            .enter().append("text")
+            .attr("class", "legend-text")
+            .attr("x", 20) // Adjust the x position of text
+            .attr("y", (d, i) => i * 25) // Adjust the y position of text
+            .attr("dy", "0.35em")
+            .text(d => `${symbolDescription[d]}`);
+
         simulation.on("tick", () => {
             link.attr("d", linkArc);
             node.attr("transform", d => `translate(${d.x},${d.y})`);
         });
 
-    function ticked() {
-        link.attr("d", linkArc);
-        node.attr("transform", d => `translate(${d.x},${d.y})`);
-    }
-});
+        function ticked() {
+            link.attr("d", linkArc);
+            node.attr("transform", d => `translate(${d.x},${d.y})`);
+        }
+    });
 
-function linkArc(d) {
-    const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
-    return `
+    function linkArc(d) {
+        const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
+        return `
           M${d.source.x},${d.source.y}
           A${r},${r} 0 0,1 ${d.target.x},${d.target.y}
         `;
-}
-
-function drag(simulation) {
-    function dragstarted(event, d) {
-        if (!event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
     }
 
-    function dragged(event, d) {
-        d.fx = event.x;
-        d.fy = event.y;
+    function getShape(d) {
+        let shape;
+
+        if (d === 1 || d === 2) {
+            shape = d3.symbol(d3.symbolCircle);
+        } else if (d === 3) {
+            shape = d3.symbol(d3.symbolCross);
+        } else if (d === 4) {
+            shape = d3.symbol(d3.symbolSquare);
+        } else if (d === 5) {
+            shape = d3.symbol(d3.symbolTriangle);
+        } else if (d === 6) {
+            shape = d3.symbol(d3.symbolStar);
+        }
+        return shape;
     }
 
-    function dragended(event, d) {
-        if (!event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
-    }
+    function drag(simulation) {
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
 
-    return d3.drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended);
-}
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        return d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended);
+    }
 }
