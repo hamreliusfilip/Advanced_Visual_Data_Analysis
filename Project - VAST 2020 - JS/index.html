@@ -10,39 +10,68 @@
 </head>
 
 <body>
+    <div class="Header">
+  
     <div class="Control">
         <div class="B_one">
-            <p> Initate data </p>
-            <button class="Button" onclick="updateChart('.chart_one', 'Data/CGCS-Template.csv', 800, 800, [400, 400])">
+            <button class="Button" onclick="createChart('.chart_one', 'Data/CGCS-Template.csv', 800, 800, [400, 400])">
                 Template
                 Graph</button>
         </div>
         <div class="B_two">
-            <p> Choose a dataset for chart two </p>
-            <button class="Button" onclick="updateChart('.chart_two', 'Data/Q1-Graph1.csv', 800, 800, [400, 400])">
+            <button class="Button" onclick="createChart('.chart_two', 'Data/Q1-Graph1.csv', 800, 800, [400, 400])">
                 Graph
                 1</button>
-            <button class="Button" onclick="updateChart('.chart_two', 'Data/Q1-Graph2.csv', 800, 800, [400, 400])">
+            <button class="Button" onclick="createChart('.chart_two', 'Data/Q1-Graph2.csv', 800, 800, [400, 400])">
                 Graph
                 2</button>
-            <button class="Button" onclick="updateChart('.chart_two', 'Data/Q1-Graph3.csv', 800, 800, [400, 400])">
+            <button class="Button" onclick="createChart('.chart_two', 'Data/Q1-Graph3.csv', 800, 800, [400, 400])">
                 Graph
                 3</button>
-            <button class="Button" onclick="updateChart('.chart_two', 'Data/Q1-Graph4.csv', 800, 800, [400, 400])">
+            <button class="Button" onclick="createChart('.chart_two', 'Data/Q1-Graph4.csv', 800, 800, [400, 400])">
                 Graph
                 4</button>
-            <button class="Button" onclick="updateChart('.chart_two', 'Data/Q1-Graph5.csv', 800, 800, [400, 400])">
+            <button class="Button" onclick="createChart('.chart_two', 'Data/Q1-Graph5.csv', 800, 800, [400, 400])">
                 Graph
                 5</button>
         </div>
     </div>
+    </div>
+    <div class="Control2">
+        <div class="button-container">
+            <button class="Button" id="toggleType0" onclick="toggleEdgesVisibility('.chart_one', 0)">Edge type Email</button>
+            <button class="Button" id="toggleType1" onclick="toggleEdgesVisibility('.chart_one', 1)">Edge type Phone</button>
+            <button class="Button" id="toggleType2" onclick="toggleEdgesVisibility('.chart_one', 2)">Edge type Sell</button>
+            <button class="Button" id="toggleType3" onclick="toggleEdgesVisibility('.chart_one', 3)">Edge type Buy</button>
+            <button class="Button" id="toggleType4" onclick="toggleEdgesVisibility('.chart_one', 4)">Edge type Author</button>
+            <button class="Button" id="toggleType6" onclick="toggleEdgesVisibility('.chart_one', 6)">Edge type Travels-to</button>
+        </div>
+
+        <div class="button-container">
+            <button class="Button" id="toggleType0" onclick="toggleEdgesVisibility('.chart_two', 0)">Edge type Email</button>
+            <button class="Button" id="toggleType1" onclick="toggleEdgesVisibility('.chart_two', 1)">Edge type Phone</button>
+            <button class="Button" id="toggleType2" onclick="toggleEdgesVisibility('.chart_two', 2)">Edge type Sell</button>
+            <button class="Button" id="toggleType3" onclick="toggleEdgesVisibility('.chart_two', 3)">Edge type Buy</button>
+            <button class="Button" id="toggleType4" onclick="toggleEdgesVisibility('.chart_two', 4)">Edge type Author</button>
+            <button class="Button" id="toggleType6" onclick="toggleEdgesVisibility('.chart_two', 6)">Edge type Travels-to</button>
+        </div>
+    </div>
+
+
+
+        <div class="sliderContainer">
+            <label for="chargeSlider">Charge Strength:</label>
+            <input type="range" min="-500" max="0" value="-150" class="slider" id="chargeSlider">
+            <span id="chargeValue">-150</span>
+        </div>
+
+
+
 
     <div class="Charts">
-
         <div class="chart_one">
             <svg></svg>
         </div>
-
         <div class="chart_two">
             <svg></svg>
         </div>
