@@ -1,17 +1,23 @@
-
 function toggleEdgesVisibility(chartSelector, edgeType) {
+    console.log("Toggling edges of type:", edgeType);
 
     const svg = d3.select(chartSelector).select("svg");
 
     const edges = svg.selectAll("path");
 
     edges.each(function (d) {
-        if (d.type === edgeType) {
+        console.log("Edge data:", d); // Log the data associated with each edge
+        // Convert d.type to a number for comparison
+        const edgeTypeNumber = parseInt(d.type);
+        if (edgeTypeNumber === edgeType) {
+            console.log("Edge type matched. Current visibility:", d3.select(this).style("display")); // Log the current visibility
             const isVisible = d3.select(this).style("display") !== "none";
             d3.select(this).style("display", isVisible ? "none" : null);
+            console.log("Updated visibility:", d3.select(this).style("display")); // Log the updated visibility
         }
     });
 }
+
 
 function createChart(chartSelector, dataURL, width, height, centerPos) {
 
@@ -28,7 +34,6 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
         d3.select('#chargeValue').text(chargeStrength);
         updateChargeStrength(chargeStrength);
     });
-
 
 
     d3.csv(dataURL).then(function (data) {
@@ -58,6 +63,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             links.push({ source: sourceNode, target: targetNode, type: d.eType });
             types.push(d.eType);
         });
+
         nodes.sort((a, b) => a.eType - b.eType);
 
         const color = d3.scaleOrdinal()
@@ -116,6 +122,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
         
         node.append("path")
             .attr("d", d => d3.symbol().type(symbolType(d.eType))());
+            
         node.append("text")
             .attr("x", 8)
             .attr("y", "0.31em")
@@ -237,16 +244,4 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .on("drag", dragged)
             .on("end", dragended);
     }
-}
-
-function toggleChart() {
-    if (currentChart === '.chart_one') {
-        currentChart = '.chart_two';
-        document.getElementById('selectedChart').innerText = 'Chart two';
-    } else {
-        currentChart = '.chart_one';
-        document.getElementById('selectedChart').innerText = 'Chart one';
-    }
-
-    createChart(currentChart, 'default-data.json', [250, 200], '.chart_two');
 }
