@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Network - CGCS Template</title>
+    <link rel="stylesheet" href="stylesheet.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="chart_partTwo.js"></script>
+</head>
+
+<body>
+    <div class="Title">
+        <p for="cars">Choose a seed & structure:</p>
+
+
+    </div>
+    <div class="SelectWrapper">
+        <select name="Seeds" id="seeds">
+            <option value="Seed 1 - 1 level">Seed 1 - 1 level deep</option>
+            <option value="Seed 2 - 1 level">Seed 2 - 1 level deep</option>
+            <option value="Seed 3 - 1 level">Seed 3 - 1 level deep</option>
+
+            <option value="Seed 1 - 2 levels">Seed 1 - 2 levels deep</option>
+            <option value="Seed 2 - 2 levels">Seed 2 - 2 levels deep</option>
+            <option value="Seed 3 - 2 levels">Seed 3 - 2 levels deep</option>
+        </select>
+    </div>
+    <div class="Header">
+
+
+
+        <div class="Control">
+            <div class="B_one">
+                <button class="Button"
+                    onclick="createChart('.chart_one', 'Data/CGCS-Template.csv', 800, 800, [400, 400], 10)">
+                    Template
+                    Graph</button>
+            </div>
+        </div>
+        <div class="Control">
+            <div class="B_two">
+                <button class="Button"
+                    onclick="createChart('.chart_two', getSelectedFilePath(), 800, 800, [400, 400], 0)">
+                    Edges email (Edge type 0)
+                </button>
+                <button class="Button"
+                    onclick="createChart('.chart_two', getSelectedFilePath(), 800, 800, [400, 400], 1)">
+                    Edges email (Edge type 1)
+                </button>
+                <button class="Button"
+                    onclick="createChart('.chart_two', getSelectedFilePath(), 800, 800, [400, 400], 2)">
+                    Edges email (Edge type 2)
+                </button>
+                <button class="Button"
+                    onclick="createChart('.chart_two', getSelectedFilePath(), 800, 800, [400, 400], 3)">
+                    Edges email (Edge type 3)
+                </button>
+                <button class="Button"
+                    onclick="createChart('.chart_two', getSelectedFilePath(), 800, 800, [400, 400], 4)">
+                    Edges email (Edge type 4)
+                </button>
+                <button class="Button"
+                    onclick="createChart('.chart_two', getSelectedFilePath(), 800, 800, [400, 400], 5)">
+                    Edges email (Edge type 5)
+                </button>
+                <button class="Button"
+                    onclick="createChart('.chart_two', getSelectedFilePath(), 800, 800, [400, 400], 6)">
+                    Edges email (Edge type 6)
+                </button>
+                <button class="Button"
+                    onclick="createChart('.chart_two', getSelectedFilePath(), 800, 800, [400, 400], 10)">
+                    Complete network
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <!-- <div class="Control2">
+        <div class="button-container">
+            <button class="Button" id="toggleType0" onclick="toggleEdgesVisibility('.chart_one', 0)">Edge type Email</button>
+            <button class="Button" id="toggleType1" onclick="toggleEdgesVisibility('.chart_one', 1)">Edge type Phone</button>
+            <button class="Button" id="toggleType2" onclick="toggleEdgesVisibility('.chart_one', 2)">Edge type Sell</button>
+            <button class="Button" id="toggleType3" onclick="toggleEdgesVisibility('.chart_one', 3)">Edge type Buy</button>
+            <button class="Button" id="toggleType4" onclick="toggleEdgesVisibility('.chart_one', 4)">Edge type Author</button>
+            <button class="Button" id="toggleType6" onclick="toggleEdgesVisibility('.chart_one', 6)">Edge type Travels-to</button>
+        </div>
+
+        <div class="button-container">
+            <button class="Button" id="toggleType0_2" onclick="toggleEdgesVisibility('.chart_two', 0)">Edge type Email</button>
+            <button class="Button" id="toggleType1_2" onclick="toggleEdgesVisibility('.chart_two', 1)">Edge type Phone</button>
+            <button class="Button" id="toggleType2_2" onclick="toggleEdgesVisibility('.chart_two', 2)">Edge type Sell</button>
+            <button class="Button" id="toggleType3_2" onclick="toggleEdgesVisibility('.chart_two', 3)">Edge type Buy</button>
+            <button class="Button" id="toggleType4_2" onclick="toggleEdgesVisibility('.chart_two', 4)">Edge type Author</button>
+            <button class="Button" id="toggleType6_2" onclick="toggleEdgesVisibility('.chart_two', 6)">Edge type Travels-to</button>
+        </div>
+    </div> -->
+
+
+
+    <div class="sliderContainer">
+        <label for="chargeSlider">Charge Strength:</label>
+        <input type="range" min="-500" max="0" value="-150" class="slider" id="chargeSlider">
+        <span id="chargeValue">-150</span>
+    </div>
+
+
+
+
+    <div class="Charts">
+        <div class="chart_one">
+            <svg></svg>
+        </div>
+        <div class="chart_two">
+            <svg></svg>
+        </div>
+    </div>
+
+    <div>
+</body>
+
+</html>
