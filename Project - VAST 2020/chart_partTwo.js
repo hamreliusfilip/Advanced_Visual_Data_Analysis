@@ -18,7 +18,6 @@ function toggleEdgesVisibility(chartSelector, edgeTyp) {
     });
 }
 
-
 function createChart(chartSelector, dataURL, width, height, centerPos, selectedEdgeType) {
 
     var chargeStrength = -150;
@@ -34,7 +33,6 @@ function createChart(chartSelector, dataURL, width, height, centerPos, selectedE
         d3.select('#chargeValue').text(chargeStrength);
         updateChargeStrength(chargeStrength);
     });
-
 
     d3.csv(dataURL).then(function (data) {
 
@@ -257,21 +255,12 @@ function getSelectedFilePath() {
     var selectedValue = document.getElementById("seeds").value;
 
     if (selectedValue === "Seed 1 - 1 level") {
-        return 'output_structure_seed_one.csv';
+        return 'Seed_Structure_data/output_structure_seed_one.csv';
 
     } else if (selectedValue === "Seed 2 - 1 level") {
-        return 'output_structure_seed_two.csv';
+        return 'Seed_Structure_data/output_structure_seed_two.csv';
 
     } else if (selectedValue === "Seed 3 - 1 level") {
-        return 'output_structure_seed_three.csv';
-
-    } else if (selectedValue === "Seed 1 - 2 levels") {
-        return 'output_structure_seed_one_two_levels.csv';
-
-    } else if (selectedValue === "Seed 2 - 2 levels") {
-        return 'output_structure_seed_two_two_levels.csv';
-        
-    } else if (selectedValue === "Seed 3 - 2 levels") {
-        return 'output_structure_seed_three_two_levels.csv';
+        return 'Seed_Structure_data/output_structure_seed_three.csv';
     }
 }
