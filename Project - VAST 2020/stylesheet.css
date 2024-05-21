@@ -5,6 +5,33 @@ svg {
     border-radius: 10px;
 }
 
+.SelectWrapper{ 
+    display: flex;
+    justify-content: center;
+}
+
+select { 
+    padding: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px;
+
+}
+
+.Title { 
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    font-weight: bold;
+    color: black;
+    font-family: Arial, sans-serif;
+}
+
 
 .Control { 
     display: flex;
