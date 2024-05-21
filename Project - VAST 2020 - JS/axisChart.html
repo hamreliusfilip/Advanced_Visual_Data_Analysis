@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Network - CGCS Template</title>
+    <link rel="stylesheet" href="axisChart.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="axisChart.js"></script>
+
+</head>
+
+<body>
+    <div>
+        <button class="Button" onclick="createAxisChart('Data/CGCS-Template.csv')">
+            Template
+        </button>
+        <button class="Button" onclick="createAxisChart('Data/Q1-Graph1.csv')">
+            Graph 1
+        </button>
+        <button class="Button" onclick="createAxisChart('Data/Q1-Graph2.csv')">
+            Graph 2
+        </button>
+        <button class="Button" onclick="createAxisChart('Data/Q1-Graph3.csv')">
+            Graph 3
+        </button>
+        <button class="Button" onclick="createAxisChart('Data/Q1-Graph4.csv')">
+            Graph 4
+        </button>
+        <button class="Button" onclick="createAxisChart('Data/Q1-Graph5.csv')">
+            Graph 5
+        </button>
+    </div>
+
+    <!-- Placeholder for the SVG -->
+    <div class="row">
+        <div id="chart"></div>
+        <div id="tooltip"></div>
+        <div id="legend-container"></div>
+    </div>
+
+</body>
+
+</html>

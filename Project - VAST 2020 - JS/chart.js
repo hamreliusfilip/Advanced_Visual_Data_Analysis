@@ -1,8 +1,43 @@
+function toggleEdgesVisibility(chartSelector, edgeType) {
+    console.log("Toggling edges of type:", edgeType);
+
+    const svg = d3.select(chartSelector).select("svg");
+
+    const edges = svg.selectAll("path");
+
+    edges.each(function (d) {
+        console.log("Edge data:", d); // Log the data associated with each edge
+        // Convert d.type to a number for comparison
+        const edgeTypeNumber = parseInt(d.type);
+        if (edgeTypeNumber === edgeType) {
+            console.log("Edge type matched. Current visibility:", d3.select(this).style("display")); // Log the current visibility
+            const isVisible = d3.select(this).style("display") !== "none";
+            d3.select(this).style("display", isVisible ? "none" : null);
+            console.log("Updated visibility:", d3.select(this).style("display")); // Log the updated visibility
+        }
+    });
+}
+
+
 function createChart(chartSelector, dataURL, width, height, centerPos) {
+
     var chargeStrength = -150;
     var simulation;
 
+    function updateChargeStrength(chargeStrength) {
+        simulation.force('charge', d3.forceManyBody().strength(chargeStrength));
+        simulation.alpha(0.3).restart();
+    }
+
+    d3.select('#chargeSlider').on('input', function () {
+        chargeStrength = +this.value;
+        d3.select('#chargeValue').text(chargeStrength);
+        updateChargeStrength(chargeStrength);
+    });
+
+
     d3.csv(dataURL).then(function (data) {
+
         var nodes = [];
         var links = [];
         var types = [];
@@ -16,18 +51,20 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             }
 
             if (!sourceNode) {
-                sourceNode = { id: d.Source, eType: d.eType };
+                sourceNode = { id: d.Source, eType: d.eType, eType: d.eType };
                 nodes.push(sourceNode);
             }
 
             if (!targetNode) {
-                targetNode = { id: d.Target, eType: d.eType };
+                targetNode = { id: d.Target, eType: d.eType, eType: d.eType };
                 nodes.push(targetNode);
             }
 
             links.push({ source: sourceNode, target: targetNode, type: d.eType });
             types.push(d.eType);
         });
+
+        nodes.sort((a, b) => a.eType - b.eType);
         nodes.sort((a, b) => a.eType - b.eType);
 
         const color = d3.scaleOrdinal()
@@ -40,10 +77,8 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .force("center", d3.forceCenter(centerPos[0], centerPos[1]))
             .on("tick", ticked);
 
-        // Select and remove the existing SVG element
         d3.select(chartSelector).selectAll("svg").remove();
 
-        // Append a new SVG element
         var svg = d3.select(chartSelector)
             .append("svg")
             .attr("width", width)
@@ -56,8 +91,8 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .attr("viewBox", "0 -5 10 10")
             .attr("refX", 15)
             .attr("refY", -0.5)
-            .attr("markerWidth", 6)
-            .attr("markerHeight", 6)
+            .attr("markerWidth", 10)
+            .attr("markerHeight", 10)
             .attr("orient", "auto")
             .append("path")
             .attr("fill", color)
@@ -69,10 +104,11 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .selectAll("path")
             .data(links)
             .join("path")
-            .attr("stroke", d => color(d.type))
-            .attr("marker-end", d => `url(${new URL(`#arrow-${d.type}`, location)})`);
+            .attr("stroke", "grey")
+            .attr("marker-end", d => `url(${new URL(`#arrow-${d.type}`, location)})`)
+            .attr("fill", "none");
 
-        const node = svg.append("g")
+       const node = svg.append("g")
             .attr("fill", "currentColor")
             .attr("stroke-linecap", "round")
             .attr("stroke-linejoin", "round")
@@ -82,13 +118,12 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .call(drag(simulation));
 
         const symbolType = d3.scaleOrdinal()
-            .domain([0, 1, 2, 3, 4, 5, 6]) // Include all possible eTypes
+            .domain([0, 1, 2, 3, 4, 5, 6])
             .range([d3.symbolCircle, d3.symbolCircle, d3.symbolCircle ,d3.symbolCross, d3.symbolSquare, d3.symbolTriangle, d3.symbolStar]);
         
         node.append("path")
             .attr("d", d => d3.symbol().type(symbolType(d.eType))());
-
-
+            
         node.append("text")
             .attr("x", 8)
             .attr("y", "0.31em")
@@ -97,7 +132,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .attr("fill", "black")
             .attr("font-weight", "bold");
 
-        const legend = svg.append("g")
+            const legend = svg.append("g")
             .attr("class", "legend")
             .attr("transform", "translate(20,20)");
 
@@ -156,43 +191,26 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             node.attr("transform", d => `translate(${d.x},${d.y})`);
         });
 
-        function ticked() {
-            link.attr("d", linkArc);
-            node.attr("transform", d => `translate(${d.x},${d.y})`);
-        }
-    });
+            function ticked() {
+                link.attr("d", linkArc);
+                node.attr("transform", d => `translate(${d.x},${d.y})`);
+            }
+        });
 
-    function linkArc(d) {
-        const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
-        return `
+        function linkArc(d) {
+            const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
+            return `
           M${d.source.x},${d.source.y}
           A${r},${r} 0 0,1 ${d.target.x},${d.target.y}
         `;
     }
 
-    function getShape(d) {
-        let shape;
-
-        if (d === 1 || d === 2) {
-            shape = d3.symbol(d3.symbolCircle);
-        } else if (d === 3) {
-            shape = d3.symbol(d3.symbolCross);
-        } else if (d === 4) {
-            shape = d3.symbol(d3.symbolSquare);
-        } else if (d === 5) {
-            shape = d3.symbol(d3.symbolTriangle);
-        } else if (d === 6) {
-            shape = d3.symbol(d3.symbolStar);
-        }
-        return shape;
-    }
-
-    function drag(simulation) {
-        function dragstarted(event, d) {
-            if (!event.active) simulation.alphaTarget(0.3).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
+        function drag(simulation) {
+            function dragstarted(event, d) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
 
         function dragged(event, d) {
             d.fx = event.x;
