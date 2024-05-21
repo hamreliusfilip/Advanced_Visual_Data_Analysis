@@ -65,11 +65,10 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
         });
 
         nodes.sort((a, b) => a.eType - b.eType);
-        nodes.sort((a, b) => a.eType - b.eType);
 
         const color = d3.scaleOrdinal()
             .domain(types)
-            .range(d3.schemeCategory10);
+            .range(d3.schemeCategory10.slice(0, 6));
 
         simulation = d3.forceSimulation(nodes)
             .force("link", d3.forceLink(links).id(d => d.id))
@@ -100,7 +99,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
 
         const link = svg.append("g")
             .attr("fill", "none")
-            .attr("stroke-width", 1.5)
+            .attr("stroke-width", 1)
             .selectAll("path")
             .data(links)
             .join("path")
@@ -108,7 +107,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .attr("marker-end", d => `url(${new URL(`#arrow-${d.type}`, location)})`)
             .attr("fill", "none");
 
-       const node = svg.append("g")
+        const node = svg.append("g")
             .attr("fill", "currentColor")
             .attr("stroke-linecap", "round")
             .attr("stroke-linejoin", "round")
@@ -119,11 +118,12 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
 
         const symbolType = d3.scaleOrdinal()
             .domain([0, 1, 2, 3, 4, 5, 6])
-            .range([d3.symbolCircle, d3.symbolCircle, d3.symbolCircle ,d3.symbolCross, d3.symbolSquare, d3.symbolTriangle, d3.symbolStar]);
-        
+            .range([d3.symbolCircle, d3.symbolCircle, d3.symbolCircle, d3.symbolCross, d3.symbolSquare, d3.symbolTriangle, d3.symbolStar]);
+
         node.append("path")
-            .attr("d", d => d3.symbol().type(symbolType(d.eType))());
-            
+            .attr("d", d => d3.symbol().type(symbolType(d.eType))())
+            .attr("fill", "grey");
+
         node.append("text")
             .attr("x", 8)
             .attr("y", "0.31em")
@@ -132,7 +132,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .attr("fill", "black")
             .attr("font-weight", "bold");
 
-            const legend = svg.append("g")
+        const legend = svg.append("g")
             .attr("class", "legend")
             .attr("transform", "translate(20,20)");
 
@@ -150,8 +150,8 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .style("fill", color);
 
         const typeDescription = ["Email (Communication)", "Phone (Communication)", "Sell (Procurement)", "Buy (Procurement)", "Co-authorship channel", "Demographics channel (Income/expenses)", "Travel channel"];
-        const symbolDescription = ["Person", "Person" , "Person", "Product", "Document", "Country", "Travel channel"];
-        
+        const symbolDescription = ["Person", "Person", "Person", "Product", "Document", "Country", "Travel channel"];
+
         legend.selectAll(".legend-text")
             .data(uniqueColors)
             .enter().append("text")
@@ -164,7 +164,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
         const symbolLegend = svg.append("g")
             .attr("class", "legend")
             .attr("transform", `translate(${width - 150}, 20)`); // Adjust x and y coordinates here
-        
+
         symbolLegend.selectAll(".legend-symbol")
             .data(uniqueColors)
             .enter().append("g")
@@ -176,7 +176,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
                     .attr("stroke", "black")
                     .attr("stroke-width", 1.5);
             });
-        
+
         symbolLegend.selectAll(".legend-text")
             .data(uniqueColors)
             .enter().append("text")
@@ -191,26 +191,26 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             node.attr("transform", d => `translate(${d.x},${d.y})`);
         });
 
-            function ticked() {
-                link.attr("d", linkArc);
-                node.attr("transform", d => `translate(${d.x},${d.y})`);
-            }
-        });
+        function ticked() {
+            link.attr("d", linkArc);
+            node.attr("transform", d => `translate(${d.x},${d.y})`);
+        }
+    });
 
-        function linkArc(d) {
-            const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
-            return `
+    function linkArc(d) {
+        const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
+        return `
           M${d.source.x},${d.source.y}
           A${r},${r} 0 0,1 ${d.target.x},${d.target.y}
         `;
     }
 
-        function drag(simulation) {
-            function dragstarted(event, d) {
-                if (!event.active) simulation.alphaTarget(0.3).restart();
-                d.fx = d.x;
-                d.fy = d.y;
-            }
+    function drag(simulation) {
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
 
         function dragged(event, d) {
             d.fx = event.x;
