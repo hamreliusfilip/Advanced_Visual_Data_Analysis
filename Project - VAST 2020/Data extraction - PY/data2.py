@@ -78,13 +78,13 @@ def save_best_match(subgraph, output_file):
 
 # Main function to load data, find matches, and save the best match
 def main():
-    seed_graph = load_seed_data('Data/Q2-Seed1.csv')
+    seed_graph = load_seed_data('C:/Users/annaa/Desktop/Lab 2/Advanced_Visual_Data_Analysis/Project - VAST 2020/Data/Q2-Seed1.csv')
     seed_nodes = set(seed_graph.nodes())
-    template_graph = load_template_graph('Data/CGCS-Template.csv')
-    potential_subgraphs = search_and_expand('Data/CGCS-GraphData.csv', seed_nodes, neighborhood_size=2)
+    template_graph = load_template_graph('C:/Users/annaa/Desktop/Lab 2/Advanced_Visual_Data_Analysis/Project - VAST 2020/Data/CGCS-Template.csv')
+    potential_subgraphs = search_and_expand('C:/Users/annaa/Desktop/Lab 2/Advanced_Visual_Data_Analysis/Project - VAST 2020/Data/CGCS-GraphData.csv', seed_nodes, neighborhood_size=2)
     best_match = find_best_match(potential_subgraphs, template_graph)
     if best_match:
-        save_best_match(best_match, 'Seed_Structure_data/testtesttest.csv')
+        save_best_match(best_match, 'C:/Users/annaa/Desktop/Lab 2/Advanced_Visual_Data_Analysis/Project - VAST 2020/Seed_Structure_data/testtesttest.csv')
     else:
         print("No matching subgraph found")
 
