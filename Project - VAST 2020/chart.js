@@ -51,12 +51,12 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             }
 
             if (!sourceNode) {
-                sourceNode = { id: d.Source, eType: d.eType };
+                sourceNode = { id: d.Source, eType: d.eType, eType: d.eType };
                 nodes.push(sourceNode);
             }
 
             if (!targetNode) {
-                targetNode = { id: d.Target, eType: d.eType };
+                targetNode = { id: d.Target, eType: d.eType, eType: d.eType };
                 nodes.push(targetNode);
             }
 
@@ -68,7 +68,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
 
         const color = d3.scaleOrdinal()
             .domain(types)
-            .range(d3.schemeCategory10);
+            .range(d3.schemeCategory10.slice(0, 6));
 
         simulation = d3.forceSimulation(nodes)
             .force("link", d3.forceLink(links).id(d => d.id))
@@ -99,7 +99,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
 
         const link = svg.append("g")
             .attr("fill", "none")
-            .attr("stroke-width", 1.5)
+            .attr("stroke-width", 1)
             .selectAll("path")
             .data(links)
             .join("path")
@@ -107,7 +107,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .attr("marker-end", d => `url(${new URL(`#arrow-${d.type}`, location)})`)
             .attr("fill", "none");
 
-       const node = svg.append("g")
+        const node = svg.append("g")
             .attr("fill", "currentColor")
             .attr("stroke-linecap", "round")
             .attr("stroke-linejoin", "round")
@@ -118,11 +118,12 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
 
         const symbolType = d3.scaleOrdinal()
             .domain([0, 1, 2, 3, 4, 5, 6])
-            .range([d3.symbolCircle, d3.symbolCircle, d3.symbolCircle ,d3.symbolCross, d3.symbolSquare, d3.symbolTriangle, d3.symbolStar]);
-        
+            .range([d3.symbolCircle, d3.symbolCircle, d3.symbolCircle, d3.symbolCross, d3.symbolSquare, d3.symbolTriangle, d3.symbolStar]);
+
         node.append("path")
-            .attr("d", d => d3.symbol().type(symbolType(d.eType))());
-            
+            .attr("d", d => d3.symbol().type(symbolType(d.eType))())
+            .attr("fill", "grey");
+
         node.append("text")
             .attr("x", 8)
             .attr("y", "0.31em")
@@ -131,7 +132,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .attr("fill", "black")
             .attr("font-weight", "bold");
 
-            const legend = svg.append("g")
+        const legend = svg.append("g")
             .attr("class", "legend")
             .attr("transform", "translate(20,20)");
 
@@ -149,8 +150,8 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             .style("fill", color);
 
         const typeDescription = ["Email (Communication)", "Phone (Communication)", "Sell (Procurement)", "Buy (Procurement)", "Co-authorship channel", "Demographics channel (Income/expenses)", "Travel channel"];
-        const symbolDescription = ["Person", "Person" , "Person", "Product", "Document", "Country", "Travel channel"];
-        
+        const symbolDescription = ["Person", "Person", "Person", "Product", "Document", "Country", "Travel channel"];
+
         legend.selectAll(".legend-text")
             .data(uniqueColors)
             .enter().append("text")
@@ -163,7 +164,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
         const symbolLegend = svg.append("g")
             .attr("class", "legend")
             .attr("transform", `translate(${width - 150}, 20)`); // Adjust x and y coordinates here
-        
+
         symbolLegend.selectAll(".legend-symbol")
             .data(uniqueColors)
             .enter().append("g")
@@ -175,7 +176,7 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
                     .attr("stroke", "black")
                     .attr("stroke-width", 1.5);
             });
-        
+
         symbolLegend.selectAll(".legend-text")
             .data(uniqueColors)
             .enter().append("text")
@@ -220,23 +221,6 @@ function createChart(chartSelector, dataURL, width, height, centerPos) {
             if (!event.active) simulation.alphaTarget(0);
             d.fx = null;
             d.fy = null;
-        }
-
-        function getShape(d) {
-            let shape;
-    
-            if (d === 1 || d === 2) {
-                shape = d3.symbol(d3.symbolCircle);
-            } else if (d === 3) {
-                shape = d3.symbol(d3.symbolCross);
-            } else if (d === 4) {
-                shape = d3.symbol(d3.symbolSquare);
-            } else if (d === 5) {
-                shape = d3.symbol(d3.symbolTriangle);
-            } else if (d === 6) {
-                shape = d3.symbol(d3.symbolStar);
-            }
-            return shape;
         }
 
         return d3.drag()
