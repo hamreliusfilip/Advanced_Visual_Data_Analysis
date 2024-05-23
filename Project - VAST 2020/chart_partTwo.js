@@ -255,12 +255,15 @@ function getSelectedFilePath() {
     var selectedValue = document.getElementById("seeds").value;
 
     if (selectedValue === "Seed 1 - 1 level") {
-        return 'Seed_Structure_data/output_structure_seed_one.csv';
+        return 'Seed_Structure_data/output_total_seedOne.csv';
 
     } else if (selectedValue === "Seed 2 - 1 level") {
-        return 'Seed_Structure_data/output_structure_seed_two.csv';
+        return 'Seed_Structure_data/output_total_seedTwo.csv';
 
     } else if (selectedValue === "Seed 3 - 1 level") {
-        return 'Seed_Structure_data/output_structure_seed_three.csv';
+        return 'Seed_Structure_data/output_total_seedThree.csv';
+    } else if (selectedValue === "Seed 1 - 2 level co_aut") {
+        return 'Seed_Structure_data/SeedOne_2Levels_FilteredOn_FrequentEdges.csv';
     }
+    
 }
