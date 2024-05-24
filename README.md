@@ -1,6 +1,19 @@
-Labs and Project for the advanced visual data analysis course. 
-
 Project include the VAST challange from 2020 - Mini challange 1.
+
+<img width="1509" alt="Skärmavbild 2024-05-24 kl  14 20 37" src="https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/321be567-e914-4f25-b91e-a3362815f1fb">
+<img width="1660" alt="Skärmavbild 2024-05-24 kl  14 20 46" src="https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/6762844f-fa82-4b50-9b55-b3720714a8b3">
+<img width="1660" alt="Skärmavbild 2024-05-24 kl  14 20 51" src="https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/7256f7fa-34bb-4254-bd8f-1e3b2acff6c1">
+<img width="1660" alt="Skärmavbild 2024-05-24 kl  14 21 03" src="https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/4da7a7f9-820e-499e-acc9-7d867510ea80">
+<img width="1660" alt="Skärmavbild 2024-05-24 kl  14 21 11" src="https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/774ff80e-6309-46d5-9a90-c8a12cb83369">
+<img width="1660" alt="Skärmavbild 2024-05-24 kl  14 21 14" src="https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/40eeab6c-07d3-4836-9f5b-cb4b3e8d8aec">
+<img width="1660" alt="Skärmavbild 2024-05-24 kl  14 21 19" src="https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/bce2cad6-299b-455c-a2c6-60383af2b5e7">
+<img width="1660" alt="Skärmavbild 2024-05-24 kl  14 21 28" src="https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/e720248e-9e68-48eb-b5f3-5810b1832f11">
+<img width="1660" alt="Skärmavbild 2024-05-24 kl  14 21 32" src="https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/7cc2bb63-0bcc-4db5-882f-d26e4ceaea36">
+<img width="1660" alt="Skärmavbild 2024-05-24 kl  14 21 38" src="https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/b608a865-dece-49ff-957c-b2b9f44a0b67">
+<img width="1660" alt="Skärmavbild 2024-05-24 kl  14 21 42" src="https://github.com/hamreliusfilip/Advanced_Visual_Data_Analysis/assets/91670593/2d477820-3a67-4022-88b3-2f490909c25b">
+
+
+Resoruces from labs: 
 
 Lab 2: 
 
