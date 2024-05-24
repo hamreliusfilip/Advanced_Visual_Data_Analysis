@@ -265,5 +265,8 @@ function getSelectedFilePath() {
     } else if (selectedValue === "Seed 1 - 2 level co_aut") {
         return 'Seed_Structure_data/SeedOne_2Levels_FilteredOn_FrequentEdges.csv';
     }
+    else if (selectedValue === "SeedThree_Buyers") {
+        return 'Seed_Structure_data/seedThreeBuyerTimeCONTROLTEST.csv';
+    }
     
 }

@@ -10,36 +10,25 @@ def load_seed_data(file_path):
             seed_data.append(row)
     return seed_data
 
-# Function to match a row with a seed
-def match_seed(row, seed):
-    for key, value in seed.items():
-        if row[key] != value:
-            return False
-    return True
-
 # Function to match nodes with the eType check
 def match_node(row, seed):
     if row['eType'] not in {'0', '1', '4'}:
         return False
     return row['Target'] == seed['Source']
 
-# Function to find nodes recursively up to two levels deep
+# Function to search nodes efficiently
 def search_nodes(file_path, seeds, depth=2):
     found_nodes = []
     next_seeds = seeds
 
-    for level in range(depth):
-        current_level_nodes = []
-        with open(file_path, 'r') as csvfile:
-            reader = csv.DictReader(csvfile)
-            progress_bar = tqdm(reader, total=123000000)
-            for idx, row in enumerate(progress_bar, start=2):
-                for seed in next_seeds:
-                    if match_node(row, seed):
-                        found_nodes.append((idx, row))
-                        current_level_nodes.append(row)
-                        break
-        next_seeds = current_level_nodes
+    with open(file_path, 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        progress_bar = tqdm(reader, total=123000000)
+        for idx, row in enumerate(progress_bar, start=2):
+            for seed in next_seeds:
+                if match_node(row, seed):
+                    found_nodes.append((idx, row))
+                    break
 
     return found_nodes
 
@@ -72,8 +61,6 @@ if __name__ == "__main__":
     # Load seed data
     print("Extracting seeds...")
     seed_data_one = load_seed_data('Project - VAST 2020/Data/Q2-Seed1.csv')
-    seed_data_two = load_seed_data('Project - VAST 2020/Data/Q2-Seed2.csv')
-    seed_data_three = load_seed_data('Project - VAST 2020/Data/Q2-Seed3.csv')
 
     # Define the file path for the main data
     file_path_data = 'Project - VAST 2020/Data/CGCS-GraphData.csv'
