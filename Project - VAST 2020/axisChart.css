@@ -15,8 +15,8 @@
     align-self: center;
     justify-content: space-between;
     padding: 5px;
-    flex-grow: 0; /* Do not grow; maintain width based on content */
-    max-width: 300px; /* Set maximum width for tooltip */
+    flex-grow: 0; 
+    max-width: 300px; 
     height: fit-content;
 }
 
@@ -29,6 +29,18 @@
 }
 
 .selected {
-    stroke: #000 ; /* Add your desired highlight style */
+    stroke: #000 ; 
     stroke-width: 2px;
+}
+
+Button{ 
+    padding: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px;
 }

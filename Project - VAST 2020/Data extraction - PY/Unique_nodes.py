@@ -37,7 +37,6 @@ def search_with_seed(file_path, output_file_path):
 
 print("Finding seed...")
 
-# Step 2: Search for all rows with the matching seed and write them directly to the output file
 search_with_seed(file_path_data, output_file_path)
 
 print(f"Matching rows have been written to {output_file_path}")

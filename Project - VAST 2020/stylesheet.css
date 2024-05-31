@@ -10,6 +10,18 @@ svg {
     justify-content: center;
 }
 
+.GFG {
+    padding: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px;
+}
+
 select { 
     padding: 8px;
     font-size: 20px;

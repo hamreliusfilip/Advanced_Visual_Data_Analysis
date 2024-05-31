@@ -1,14 +1,11 @@
 function createAxisChart(dataURL) {
 
     function convertTimestamp(timestamp) {
-        // Convert seconds to milliseconds
         var milliseconds = timestamp * 1000;
 
-        // Subtract milliseconds from 12:00 AM Jan. 1, 2025
-        var date = new Date(2025, 0, 1); // Jan is 0 in JavaScript
+        var date = new Date(2025, 0, 1); 
         date.setTime(date.getTime() - milliseconds);
 
-        // Format the date in ISO 8601 format
         return date.toISOString();
     }
 
@@ -17,7 +14,7 @@ function createAxisChart(dataURL) {
 
         data.forEach(function (d) {
             if (d.eType != 5) {
-                if (d.Time >= 0) { // Check if the time is non-negative
+                if (d.Time >= 0) { 
                     var sourceNode = { id: d.Source, target: d.Target, eType: d.eType, time: convertTimestamp(d.Time) };
                     nodes.push(sourceNode);
                 }
@@ -36,22 +33,19 @@ function createAxisChart(dataURL) {
         let tooltipVisible = false;
         let selectedNode = null;
 
-        // Count the frequency of each id
         const idFrequency = {};
         nodes.forEach(node => {
             idFrequency[node.id] = (idFrequency[node.id] || 0) + 1;
         });
 
-
-        // Sort the nodes based on id frequency
         nodes.sort((a, b) => idFrequency[a.id] - idFrequency[b.id]);
 
-        // Parse ISO 8601 formatted time strings to create Date objects
+
         nodes.forEach(function (d) {
             d.time = new Date(d.time);
         });
 
-        // Create the scales.
+
         const x = d3.scaleUtc()
             .domain(d3.extent(nodes, d => d.time))
             .rangeRound([marginLeft, width - marginRight]);
@@ -61,10 +55,9 @@ function createAxisChart(dataURL) {
             .rangeRound([height - marginBottom, marginTop])
             .padding(1);
 
-        // Adjust color scale based on eType
         const color = d3.scaleOrdinal()
             .domain(nodes.map(d => d.eType))
-            .range(d3.schemeCategory10); // You can replace this with your custom color array
+            .range(d3.schemeCategory10); 
 
         const svg = d3.select("#chart").append("svg")
             .attr("viewBox", [0, 0, width, height])
@@ -72,7 +65,7 @@ function createAxisChart(dataURL) {
             .attr("height", height)
             .attr("style", "max-width: 100%; height: auto;");
 
-        const tooltip = d3.select("#tooltip") // Select the tooltip by ID
+        const tooltip = d3.select("#tooltip") 
             .append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
@@ -86,7 +79,7 @@ function createAxisChart(dataURL) {
             .attr("transform", `translate(${marginLeft},0)`)
             .call(d3.axisLeft(y))
             .call(g => g.select(".domain").remove())
-            .call(g => g.selectAll(".tick text").attr("dy", "0.35em")); // Adjust y-axis label position
+            .call(g => g.selectAll(".tick text").attr("dy", "0.35em")); 
 
         svg.append("g")
             .attr("stroke", "currentColor")
@@ -115,7 +108,6 @@ function createAxisChart(dataURL) {
         }
 
         d3.select(".Button").on("click", function () {
-            // Reset the tooltip and selected node
             hideTooltip();
             selectedNode = null;
         });
@@ -128,11 +120,11 @@ function createAxisChart(dataURL) {
             .join("circle")
             .attr("cx", d => x(d.time))
             .attr("cy", d => y(d.id) + y.bandwidth() / 2)
-            .attr("r", 4) // Adjust the radius of the circles as needed
+            .attr("r", 4) 
             .attr("fill", d => color(d.eType))
             .on("mouseover", function (event, d) {
                 
-                if (!tooltipVisible) { // Only show tooltip if it's not already visible
+                if (!tooltipVisible) { 
                     tooltip.transition()
                         .duration(200)
                         .style("opacity", .9);
@@ -144,23 +136,21 @@ function createAxisChart(dataURL) {
             })
             .on("click", function (event, d) {
                 if (selectedNode && selectedNode.id === d.id && +selectedNode.time === +d.time) {
-                    // If the same node is clicked again, unselect it
                     d3.select(this).classed("selected", false);
                     selectedNode = null;
-                    // Hide the tooltip
                     hideTooltip();
                 } else {
-                    // If a different node is clicked, unselect the previously selected node
+                   
                     svg.selectAll("circle").classed("selected", false);
-                    // Apply the "selected" class only to the clicked circle
+              
                     d3.select(this).classed("selected", true);
-                    // Set the selected node ID and time
+                  
                     selectedNode = { id: d.id, time: d.time };
-                    // Ensure tooltip remains visible when a node is clicked
+              
                     tooltipVisible = true;
-                    // Update the tooltip content
+                  
                     tooltip.html("Node ID: " + d.id + "<br/>" + "Target ID: " + d.target + "<br/>" + "Type: " + typeLabel[d.eType] + "<br/>" + "Time: " + d.time);
-                    // Show the tooltip
+                 
                     tooltip.transition()
                         .duration(200)
                         .style("opacity", .9)
@@ -169,7 +159,7 @@ function createAxisChart(dataURL) {
                 }
             })
             .on("mouseout", function (d) {
-                if (!tooltipVisible) { // Only hide tooltip if it's not supposed to remain visible
+                if (!tooltipVisible) { 
                     tooltip.transition()
                         .duration(500)
                         .style("opacity", 0);
@@ -178,14 +168,13 @@ function createAxisChart(dataURL) {
             });
 
 
-        // Create legend
+ 
         const legendContainer = d3.select("#legend-container");
 
-        // Create legend inside the container
+       
         const legend = legendContainer.append("svg")
-            .attr("width", 100) // Set the width of the legend SVG
-            .attr("height", 100) // Set the height of the legend SVG
-            // You can add more attributes/styles as needed
+            .attr("width", 100) 
+            .attr("height", 100) 
             .append("g")
 
             .attr("font-family", "sans-serif")

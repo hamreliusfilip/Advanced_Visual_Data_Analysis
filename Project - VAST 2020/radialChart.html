@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radial Chart</title>
     <style>
-        /* Add any necessary styling here */
         body {
             font-family: sans-serif;
         }
@@ -26,17 +25,14 @@
 
 <body>
     <div id="chart"></div>
-
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script>
-        // Include the createRadialChart function and data here
         function createRadialChart() {
             const width = 928;
             const height = width;
             const innerRadius = 120;
             const outerRadius = Math.min(width, height) * 0.3;
             const viewBoxHeight = height * 0.69;
-
             const data = [
                 { graph: "Template", category: "Email", value: 314 },
                 { graph: "Template", category: "Phone", value: 249 },
@@ -86,12 +82,10 @@
                 { graph: "Graph 5", category: "Finacial", value: 203 },
                 { graph: "Graph 5", category: "Travel", value: 110 }
             ];
-
-            // Stack the data into series by age
             const series = d3.stack()
-                .keys(d3.union(data.map(d => d.category))) // distinct series keys, in input order
-                .value(([, D], key) => D.get(key).value) // get value for each series key and stack
-                (d3.index(data, d => d.graph, d => d.category)); // group by stack then series key
+                .keys(d3.union(data.map(d => d.category)))
+                .value(([, D], key) => D.get(key).value) 
+                (d3.index(data, d => d.graph, d => d.category)); 
 
             const arc = d3.arc()
                 .innerRadius(d => y(d[0]))
@@ -101,13 +95,11 @@
                 .padAngle(1.5 / innerRadius)
                 .padRadius(innerRadius);
 
-            // An angular x-scale
             const x = d3.scaleBand()
                 .domain(d3.groupSort(data, D => -d3.sum(D, d => d.value), d => d.graph))
                 .range([0, 2 * Math.PI])
                 .align(0);
 
-            // A radial y-scale maintains area proportionality of radial bars
             const y = d3.scaleRadial()
                 .domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
                 .range([innerRadius, outerRadius]);
@@ -117,16 +109,14 @@
                 .range(d3.schemeSpectral[series.length])
                 .unknown("#ccc");
 
-            // A function to format the value in the tooltip
             const formatValue = x => isNaN(x) ? "N/A" : x.toLocaleString("en");
 
             const svg = d3.select("#chart").append("svg")
                 .attr("width", "100%")
                 .attr("height", "auto")
-                .attr("viewBox", [-width / 2, -viewBoxHeight / 2, width, viewBoxHeight]) // Adjust viewBox height
+                .attr("viewBox", [-width / 2, -viewBoxHeight / 2, width, viewBoxHeight]) 
                 .attr("style", "width: 100%; height: auto; font: 10px sans-serif;");
-
-            // A group for each series, and a rect for each element in the series
+                
             svg.append("g")
                 .selectAll("g")
                 .data(series)

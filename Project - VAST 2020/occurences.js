@@ -1,3 +1,5 @@
+// Data for the stacked radial bar chart - Result from the count occurences python script
+
 const data = [
     {graph: "Template", category: "Email", value: 314},
     {graph: "Template", category: "Phone", value: 249},
